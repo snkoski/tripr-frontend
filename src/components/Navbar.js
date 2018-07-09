@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   Container,
@@ -12,7 +13,7 @@ class Navbar extends Component {
     this.state = {
     };
   }
-  
+
   render() {
     const { fixed } = this.state;
 
@@ -25,11 +26,11 @@ class Navbar extends Component {
         size='large'
       >
         <Container>
-          <Menu.Item as='a' active header>
+          <Menu.Item as='a' id='nav-tripr' active header onClick={this.props.onNavClick} >
               Tripr
           </Menu.Item>
-          <Menu.Item as='a'>Trips</Menu.Item>
-          <Menu.Item as='a'>Destinations</Menu.Item>
+          <Menu.Item as='a' id='nav-trips' onClick={this.props.onNavClick}>Trips</Menu.Item>
+          <Menu.Item as='a' id='nav-destinations' onClick={this.props.onNavClick}>Destinations</Menu.Item>
           <Menu.Item position='right'>
             <Button as='a' inverted={!fixed}>
                 Log In
@@ -42,7 +43,10 @@ class Navbar extends Component {
       </Menu>
     );
   }
-
 }
+
+Navbar.propTypes = {
+  onNavClick: PropTypes.func
+};
 
 export default Navbar;
