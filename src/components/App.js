@@ -10,13 +10,11 @@ class App extends Component {
     super(props);
 
     this.state = {
+      activeItem: 'tripr'
     };
   }
 
-
   render() {
-
-
     return (
       <div id="main">
         <Segment
