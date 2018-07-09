@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DestinationCard from './DestinationCard';
 
 class DestinationContainer extends Component {
   constructor(props) {
@@ -24,10 +25,20 @@ class DestinationContainer extends Component {
       }));
   }
 
+  renderDestinationCards() {
+    return this.state.destinations.map(destination => {
+      const key = `destination-${destination.id}`;
+      return (
+        <DestinationCard key={key} {...destination} />
+      );
+    });
+  }
+
   render() {
     return (
       <div id='destinations-container'>
         <h1>Top Destinations</h1>
+        {this.renderDestinationCards()}
       </div>
     );
   }
