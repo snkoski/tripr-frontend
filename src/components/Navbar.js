@@ -34,20 +34,13 @@ class Navbar extends Component {
           <Menu.Item as='a' id='nav-destinations' onClick={this.props.onNavClick}>Destinations</Menu.Item>
           <Menu.Item position='right'>
 
-            {/* <div>
-              {loggedIn ? <div className="ui primary button" onClick={this.props.onLogout}> Log Out </div> : (
-              <div className="ui primary button"> Not Logged In </div>
-              )}
-            </div> */}
-
             { loggedIn ? <Button as='a' inverted={!fixed} onClick={this.props.onLogout}>Log Out</Button> : <Button as='a' inverted={!fixed}>Log In</Button>}
-
 
             <Button onClick={this.props.onLogout} as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
               Sign Up
             </Button>
           </Menu.Item>
-              </Container>
+        </Container>
       </Menu>
     );
   }
