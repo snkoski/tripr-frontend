@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import DestinationCard from './DestinationCard';
+import { Item } from 'semantic-ui-react'
 
 class DestinationContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      destinations: []
+      destinations: [],
+      showActivities: false
+
     };
 
     this.BASE_URL = 'http://localhost:3001/api/v1';
@@ -27,11 +30,21 @@ class DestinationContainer extends Component {
       }));
   }
 
+  activityClick = (e) => {
+    console.log(e.target)
+    console.log(this.state.showActivities);
+    this.setState({
+      showActivities: !this.state.showActivities
+    })
+  }
+
+
+
   renderDestinationCards() {
     return this.state.destinations.map(destination => {
       const key = `destination-${destination.id}`;
       return (
-        <DestinationCard key={key} {...destination} />
+        <DestinationCard handleClick={this.activityClick} key={key} {...destination} showActivity={this.state.showActivities}/>
       );
     });
   }
@@ -40,7 +53,9 @@ class DestinationContainer extends Component {
     return (
       <div id='destinations-container'>
         <h1>Top Destinations</h1>
-        {this.renderDestinationCards()}
+        <Item.Group>
+          {this.renderDestinationCards()}
+        </Item.Group>
       </div>
     );
   }

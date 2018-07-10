@@ -1,3 +1,66 @@
 body {
   background: #1b1c1d;
 }
+
+.ui.medium.image
+   {
+        width: 300px;
+        height: auto;
+        font-size: 1rem;
+        margin: 10px;
+   }
+.destination-card-description {
+  /* background: red; */
+  font-size: 20px;
+  margin: 0 0 10px 0;
+  padding: 10px;
+}
+
+.destination-card-item {
+  background: #272728;
+}
+
+.destination-card-content {
+  /* background: blue; */
+  font-size: 50px;
+  margin: 10px;
+}
+
+.destination-card-meta {
+  /* background: white; */
+}
+
+#activities-container {
+  border: 5px solid #37373f;
+}
+
+.activities-card-item {
+  background: #37373f;
+
+}
+.ui.medium.image.activities-card-image {
+  background: blue;
+  /* width: 50px; */
+  width: 200px;
+  height: auto;
+}
+
+.activities-card-div {
+  /* background: green; */
+}
+
+.activities-card-header {
+  /* background: pink; */
+  font-size: 25px;
+}
+
+.activities-card-meta {
+  /* background: yellow; */
+}
+
+.activities-card-description {
+  /* background: orange; */
+  font-size: 20px;
+  padding: 10px;
+  /* height: 500px; */
+}

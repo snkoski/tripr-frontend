@@ -1,22 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Item } from 'semantic-ui-react';
+import ActivitiesContainer from './ActivitiesContainer'
 
-const DestinationCard = ({ name, description }) => {
+class DestinationCard extends React.Component {
+constructor(props) {
+  super(props);
+
+  this.state = {
+    showActivities: this.props.showActivity,
+    activities: []
+  }
+}
+
+BASE_URL = 'http://localhost:3001/api/v1/destinations';
+
+clickChangeState = (e) => {
+  this.setState({
+    showActivities: !this.state.showActivities
+  })
+}
+
+render() {
+  console.log(this.state.showActivities);
   return (
-    <Item>
-      <Item.Image size='tiny' src='/images/wireframe/image.png' />
+    <div>
+      <Item onClick={this.clickChangeState} className='destination-card-item'>
+        <Item.Image size='medium' src={this.props.thumbnail} />
+        <div className='destination-card'>
+          <Item.Content className='destination-card-content'>
+            <Item.Header as='a'>{this.props.name}</Item.Header>
+            <Item.Meta className='destination-card-meta'>
+              <br></br>
+            </Item.Meta>
+            <Item.Description className='destination-card-description'>
+              {this.props.description}
+            </Item.Description>
 
-      <Item.Content>
-        <Item.Header as='a'>{name}</Item.Header>
-        <Item.Meta>Description</Item.Meta>
-        <Item.Description>
-          {description}
-        </Item.Description>
-      </Item.Content>
-    </Item>
+          </Item.Content>
+        </div>
+      </Item>
+      {this.state.showActivities ? <ActivitiesContainer id={this.props.id}/> : console.log('OKfalse')}
+    </div>
   );
 };
+}
+
 
 DestinationCard.propTypes = {
   name: PropTypes.string,
