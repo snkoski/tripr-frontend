@@ -16,6 +16,7 @@ class Navbar extends Component {
 
   render() {
     const { fixed } = this.state;
+    const loggedIn = !!this.props.currentUser.id
 
     return (
       <Menu
@@ -27,19 +28,26 @@ class Navbar extends Component {
       >
         <Container>
           <Menu.Item as='a' id='nav-tripr' active header onClick={this.props.onNavClick} >
-              Tripr
+            Tripr
           </Menu.Item>
           <Menu.Item as='a' id='nav-trips' onClick={this.props.onNavClick}>Trips</Menu.Item>
           <Menu.Item as='a' id='nav-destinations' onClick={this.props.onNavClick}>Destinations</Menu.Item>
           <Menu.Item position='right'>
-            <Button as='a' inverted={!fixed}>
-                Log In
-            </Button>
-            <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
-                Sign Up
+
+            {/* <div>
+              {loggedIn ? <div className="ui primary button" onClick={this.props.onLogout}> Log Out </div> : (
+              <div className="ui primary button"> Not Logged In </div>
+              )}
+            </div> */}
+
+            { loggedIn ? <Button as='a' inverted={!fixed} onClick={this.props.onLogout}>Log Out</Button> : <Button as='a' inverted={!fixed}>Log In</Button>}
+
+
+            <Button onClick={this.props.onLogout} as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+              Sign Up
             </Button>
           </Menu.Item>
-        </Container>
+              </Container>
       </Menu>
     );
   }

@@ -5,16 +5,66 @@ import { Segment } from 'semantic-ui-react';
 import Welcome from './Welcome';
 import Navbar from './Navbar';
 import DestinationContainer from './DestinationContainer';
+import LoginForm from './LoginForm'
+
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeItem: 'nav-tripr'
-    };
+      activeItem: 'nav-tripr',
+      auth: {
+        currentUser: {}
+      }
+    }
+  }
 
-    this.handleNavClick = (e) => {
+    componentDidMount() {
+      const token = localStorage.getItem('token')
+      if (token) {
+        const options = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': token
+          }
+        }
+        fetch('http://localhost:3001/api/v1/reauth', options)
+        .then(resp => resp.json())
+        .then(user => {
+          this.setState({
+            auth: {
+              currentUser: user
+            }
+          })
+        })
+      }
+    }
+
+    handleLogin = (user) => {
+      this.setState({
+        auth: {
+          currentUser: user
+        }
+      }, () => {
+        localStorage.setItem('token', user.id)
+      })
+    }
+
+    handleLogout = () => {
+      // console.log(e.target);
+      this.setState({
+        auth: {
+          currentUser: {}
+        }
+      }, () => {
+        localStorage.clear()
+      })
+
+    }
+
+  handleNavClick = (e) => {
       e.persist();
       this.setState(prevState => {
         return {
@@ -23,7 +73,7 @@ class App extends Component {
         };
       });
     };
-  }
+
 
   renderContent() {
     switch (this.state.activeItem) {
@@ -36,7 +86,9 @@ class App extends Component {
     }
   }
 
+
   render() {
+    const loggedIn = !!this.state.auth.currentUser.id
     return (
       <div id="main">
         <Segment
@@ -45,8 +97,9 @@ class App extends Component {
           style={{ minHeight: 700, padding: '1em 0em' }}
           vertical
         >
-          <Navbar onNavClick={this.handleNavClick} />
-          {this.renderContent()}
+          <Navbar onNavClick={this.handleNavClick} currentUser={this.state.auth.currentUser} onLogout={this.handleLogout}/>
+          {!loggedIn ? <LoginForm
+            onLogin={this.handleLogin} /> : this.renderContent()}
         </Segment>
       </div>
     );
