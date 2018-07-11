@@ -90,7 +90,7 @@ render() {
               onChange={this.handleChange}
             />
           </div>
-          <button type='submit' className='ui basic green button'>Login</button>
+          <button type='submit' className='ui basic green button'>Create Trip</button>
         </form>
       </div>
     </div>

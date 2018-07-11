@@ -1,6 +1,6 @@
 import React from 'react';
 import TripCard from './TripCard';
-import { Item } from 'semantic-ui-react';
+import { Item, Button } from 'semantic-ui-react';
 import NewTripForm from './NewTripForm';
 class TripsContainer extends React.Component {
   constructor(props) {
@@ -8,7 +8,8 @@ class TripsContainer extends React.Component {
 
     this.state = {
       trips: [],
-      showActivities: false
+      showActivities: false,
+      showForm: false
     }
   }
 
@@ -43,10 +44,17 @@ updateTrips = (newTrips) => {
   })
 }
 
+toogleForm = (e) => {
+  this.setState({
+    showForm: !this.state.showForm
+  })
+}
+
 render() {
   return(
     <div>
-      <NewTripForm user_id={this.props.user.id} trips={this.state.trips} updateTrips={this.updateTrips}/>
+      <Button onClick={this.toogleForm}>{this.state.showForm ? 'Close Form' : 'New Trip'}</Button>
+      {this.state.showForm ? <NewTripForm user_id={this.props.user.id} trips={this.state.trips} updateTrips={this.updateTrips}/> : null}
       <h1>{this.props.user.username}'s Trips</h1>
       <Item.Group>
         {this.renderTripCards()}
