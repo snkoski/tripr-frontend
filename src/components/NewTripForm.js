@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dropdown } from 'semantic-ui-react'
 
 class NewTripForm extends React.Component {
   constructor(props) {
@@ -15,13 +16,17 @@ class NewTripForm extends React.Component {
     }
   }
 
+
+
   handleChange = (e) => {
+    console.log(e.target.value);
     const newFields = { ...this.state.fields, [e.target.name]: e.target.value};
     this.setState({ fields : newFields});
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.props.toogleForm()
     const options = {
       method: 'POST',
       headers: {
@@ -44,7 +49,7 @@ class NewTripForm extends React.Component {
     }))
   };
 render() {
-  console.log(this.props);
+  console.log(this.state.fields.destination_id);
   const { fields } = this.state;
   return(
     <div id='content'>
@@ -62,13 +67,14 @@ render() {
           </div>
           <div className='ui field'>
             <label>Destination</label>
-            <input
-              name='destination_id'
-              type='number'
-              placeholder='destination_id'
-              value={fields.destination_id}
-              onChange={this.handleChange}
-            />
+            <select  onChange={this.handleChange} value={fields.destination_id}
+            name='destination_id'>
+
+              <option selected> -- select a destination -- </option>
+              {this.props.destinations.map((destination) => {
+                return <option value={destination.id}>{destination.name}</option>
+              })}
+            </select>
           </div>
           <div className='ui field'>
             <label>Start Date</label>

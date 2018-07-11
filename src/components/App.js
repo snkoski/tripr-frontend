@@ -53,7 +53,6 @@ class App extends Component {
     }
 
     handleLogout = () => {
-      // console.log(e.target);
       this.setState({
         activeItem: 'nav-tripr',
         auth: {
@@ -88,7 +87,6 @@ class App extends Component {
       return <h1>404 Not Found</h1>;
     }
   }
-
 
   render() {
     const loggedIn = !!this.state.auth.currentUser.id
