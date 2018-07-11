@@ -5,7 +5,8 @@ import { Segment } from 'semantic-ui-react';
 import Welcome from './Welcome';
 import Navbar from './Navbar';
 import DestinationContainer from './DestinationContainer';
-import LoginForm from './LoginForm'
+import LoginForm from './LoginForm';
+import TripsContainer from './TripsContainer';
 
 
 class App extends Component {
@@ -32,8 +33,7 @@ class App extends Component {
         }
         fetch('http://localhost:3001/api/v1/reauth', options)
         .then(resp => resp.json())
-        .then(user => {
-          this.setState({
+        .then(user => { this.setState({
             auth: {
               currentUser: user
             }
@@ -55,6 +55,7 @@ class App extends Component {
     handleLogout = () => {
       // console.log(e.target);
       this.setState({
+        activeItem: 'nav-tripr',
         auth: {
           currentUser: {}
         }
@@ -81,6 +82,8 @@ class App extends Component {
       return <Welcome />;
     case 'nav-destinations':
       return <DestinationContainer />;
+    case 'nav-trips':
+      return <TripsContainer user={this.state.auth.currentUser}/>
     default:
       return <h1>404 Not Found</h1>;
     }

@@ -34,11 +34,7 @@ class Navbar extends Component {
           <Menu.Item as='a' id='nav-destinations' onClick={this.props.onNavClick}>Destinations</Menu.Item>
           <Menu.Item position='right'>
 
-            { loggedIn ? <Button as='a' inverted={!fixed} onClick={this.props.onLogout}>Log Out</Button> : <Button as='a' inverted={!fixed}>Log In</Button>}
-
-            <Button onClick={this.props.onLogout} as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
-              Sign Up
-            </Button>
+            { loggedIn ? <Button as='a' inverted={!fixed} onClick={this.props.onLogout}>Log Out</Button> : null}
           </Menu.Item>
         </Container>
       </Menu>
@@ -51,3 +47,11 @@ Navbar.propTypes = {
 };
 
 export default Navbar;
+
+
+
+/// replace null with these when you make a sign up page
+{/* <div><Button as='a' inverted={!fixed}>Log In</Button>
+  <Button onClick={this.props.onLogout} as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+    Sign Up
+  </Button></div> */}

@@ -22,7 +22,6 @@ clickChangeState = (e) => {
 }
 
 render() {
-  console.log(this.state.showActivities);
   return (
     <div>
       <Item onClick={this.clickChangeState} className='destination-card-item'>
@@ -40,12 +39,12 @@ render() {
           </Item.Content>
         </div>
       </Item>
-      {this.state.showActivities ? <ActivitiesContainer id={this.props.id}/> : console.log('OKfalse')}
+      {this.state.showActivities ? <h1>Top Activities</h1> : null}
+      {this.state.showActivities ? <ActivitiesContainer url={`http://localhost:3001/api/v1/destinations/${this.props.id}/activities`}/> : null }
     </div>
   );
 };
 }
-
 
 DestinationCard.propTypes = {
   name: PropTypes.string,

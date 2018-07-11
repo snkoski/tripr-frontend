@@ -9,10 +9,7 @@ class DestinationContainer extends Component {
     this.state = {
       destinations: [],
       showActivities: false
-
     };
-
-    this.BASE_URL = 'http://localhost:3001/api/v1';
   }
 
   componentDidMount() {
@@ -20,7 +17,7 @@ class DestinationContainer extends Component {
   }
 
   getDestinations() {
-    fetch(`${this.BASE_URL}/destinations`)
+    fetch(`http://localhost:3001/api/v1/destinations`)
       .then(resp => resp.json())
       .then(json => this.setState(prevState => {
         return {
@@ -37,8 +34,6 @@ class DestinationContainer extends Component {
       showActivities: !this.state.showActivities
     })
   }
-
-
 
   renderDestinationCards() {
     return this.state.destinations.map(destination => {

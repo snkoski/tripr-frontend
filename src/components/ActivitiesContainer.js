@@ -14,11 +14,11 @@ class ActivitiesContainer extends Component {
   }
 
   componentDidMount() {
-    this.getActivities(this.props.id);
+    this.getActivities(this.props.url);
   }
 
   getActivities(id) {
-    fetch(`${this.BASE_URL}/` + id + `/activities`)
+    fetch(id)
       .then(resp => resp.json())
       .then(json => this.setState(prevState => {
         return {
@@ -27,9 +27,6 @@ class ActivitiesContainer extends Component {
         };
       }));
   }
-
-
-
 
   renderActivitiesCards() {
     return this.state.activities.map(activity => {
@@ -43,7 +40,6 @@ class ActivitiesContainer extends Component {
   render() {
     return (
       <div id='activities-container'>
-        <h1>Top Activities</h1>
           <Item.Group>
             {this.renderActivitiesCards()}
           </Item.Group>
