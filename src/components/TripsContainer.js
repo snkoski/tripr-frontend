@@ -67,6 +67,7 @@ render() {
       {this.state.showForm ? <NewTripForm user_id={this.props.user.id} trips={this.state.trips} destinations={this.state.destinations} updateTrips={this.updateTrips}
         toogleForm={this.toogleForm}/> : null}
       <h1>{this.props.user.username}'s Trips</h1>
+
       <Item.Group>
         {this.renderTripCards()}
       </Item.Group>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Item } from 'semantic-ui-react';
+import { Item, Button, Header, Popup, Grid } from 'semantic-ui-react';
 import ActivitiesContainer from './ActivitiesContainer';
+import DestinationCard from './DestinationCard';
 
 
 class TripCard extends React.Component {
@@ -16,6 +17,7 @@ constructor(props) {
 
 componentDidMount() {
   this.getDestination(this.props.destination_id)
+  this.getActivities(this.props.destination_id)
 }
 
 getDestination(id) {
@@ -24,20 +26,63 @@ getDestination(id) {
   .then(destination => this.setState({ destination }))
 }
 
+getActivities(id) {
+  fetch('http://localhost:3001/api/v1/destinations/' + id + '/activities')
+  .then(resp => resp.json())
+  .then(activities => this.setState({ activities }))
+}
+
 clickChangeState = (e) => {
   this.setState({
     showActivities: !this.state.showActivities
   })
 }
 
+addActivity = (e) => {
+  // console.log(e.target);
+  // console.log(this.props.destination_id);
+  // console.log(this.state.destination);
+  console.log(this.state.activities);
+}
+
+assignActivity(id, data) {
+  fetch('http://localhost:3001/api/v1/trips/' + id, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'PATCH',
+    body: JSON.stringify(data)
+  })
+}
+
   render() {
+    if (this.state.activities.length !== 0){
     return(
       <div>
-        <Item onClick={this.clickChangeState} className='trip-card-item'>
-          <Item.Image size='medium' src={this.state.destination.thumbnail} />
+        <Item  className='trip-card-item'>
+          <Item.Header as='a'>{this.props.name}</Item.Header>
+
           <div className='trip-card'>
+            {/* <Button onClick={this.addActivity}>Add an Activity</Button> */}
+            <Popup trigger={<Button onClick={this.addActivity} >Add an Activity</Button>} flowing hoverable>
+
+              <Grid centered divided columns={this.state.activities.length}>
+                {this.state.activities.map((activity) => {
+                  return<Grid.Column textAlign='center'>
+                    <Header as='h4'>{activity.name}</Header>
+                    
+                    <Button onClick={() => {this.assignActivity(this.props.id, {activity_id: activity.id})}}>Add</Button>
+                  </Grid.Column>
+                })}
+
+              </Grid>
+            </Popup>
+            <h2>Add an Activity</h2>
+
             <Item.Content className='trip-card-content'>
-              <Item.Header as='a'>{this.props.name}</Item.Header>
+
+              <Item.Image onClick={this.clickChangeState} size='medium' src={this.state.destination.thumbnail} />
               <Item.Meta className='trip-card-meta'>
                 <br></br>
               </Item.Meta>
@@ -48,10 +93,13 @@ clickChangeState = (e) => {
             </Item.Content>
           </div>
         </Item>
+
         {this.state.showActivities ? <h1>Your Activities</h1> : null}
         {this.state.showActivities ? <ActivitiesContainer url={`http://localhost:3001/api/v1/trips/${this.props.id}/activities`}/> : null}
       </div>
-    )
+    )} else {
+      return null
+    }
   }
 
 }
