@@ -27,7 +27,9 @@ class LoginForm extends React.Component {
     .then(resp => resp.json())
     .then(user => {
       this.props.onLogin(user)
+
     })
+    .then(() => this.props.showWelcome())
   };
   render() {
     const { fields } = this.state;

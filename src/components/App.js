@@ -20,6 +20,7 @@ class App extends Component {
         currentUser: {}
       }
     };
+  }
 
     componentDidMount() {
       const token = localStorage.getItem('token')
@@ -48,7 +49,7 @@ class App extends Component {
           currentUser: user
         }
       }, () => {
-        localStorage.setItem('token', user.id);
+        localStorage.setItem('token', user.jwt);
       });
     };
 
@@ -74,6 +75,13 @@ class App extends Component {
       });
     };
 
+    showWelcome = () => {
+      this.setState ({
+        activeItem: 'nav-tripr',
+      })
+    }
+
+
 
   renderContent() {
     switch (this.state.activeItem) {
@@ -84,9 +92,9 @@ class App extends Component {
     case 'nav-trips':
       return <TripsContainer user={this.state.auth.currentUser}/>;
     case 'nav-login':
-      return <LoginForm onLogin={this.handleLogin} />;
+      return <LoginForm onLogin={this.handleLogin} showWelcome={this.showWelcome} />;
     case 'nav-signup':
-      return <SignupForm onLogin={this.handleLogin} />;
+      return <SignupForm onLogin={this.handleLogin} showWelcome={this.showWelcome} />;
     default:
       return <h1>404 Not Found</h1>;
     }
