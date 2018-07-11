@@ -61,25 +61,21 @@ assignActivity(id, data) {
     return(
       <div>
         <Item  className='trip-card-item'>
-          <Item.Header as='a'>{this.props.name}</Item.Header>
+          <Item.Header as='h1'>{this.props.name}</Item.Header>
 
           <div className='trip-card'>
             {/* <Button onClick={this.addActivity}>Add an Activity</Button> */}
-            <Popup trigger={<Button onClick={this.addActivity} >Add an Activity</Button>} flowing hoverable>
-
+            <Popup trigger={<Button onClick={this.addActivity} >Add an Activity For {this.state.destination.name}</Button>} flowing hoverable>
               <Grid centered divided columns={this.state.activities.length}>
                 {this.state.activities.map((activity) => {
                   return<Grid.Column textAlign='center'>
                     <Header as='h4'>{activity.name}</Header>
-                    
-                    <Button onClick={() => {this.assignActivity(this.props.id, {activity_id: activity.id})}}>Add</Button>
+                    <img src={activity.thumbnail} alt={activity.name} height="150" width="150" />
+                    <div><Button onClick={() => {this.assignActivity(this.props.id, {activity_id: activity.id})}}>Add</Button></div>
                   </Grid.Column>
                 })}
-
               </Grid>
             </Popup>
-            <h2>Add an Activity</h2>
-
             <Item.Content className='trip-card-content'>
 
               <Item.Image onClick={this.clickChangeState} size='medium' src={this.state.destination.thumbnail} />

@@ -40,7 +40,8 @@ activityClick = (e) => {
 }
 
 renderTripCards() {
-  return this.state.trips.map(trip => {
+  const reversedTrips = this.state.trips.reverse()
+  return reversedTrips.map(trip => {
     const key = `trip-${trip.id}`;
     return (
       <TripCard handleClick={this.activityClick} key={key} {...trip} showActivity={this.state.showActivities} />
