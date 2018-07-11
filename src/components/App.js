@@ -6,6 +6,7 @@ import Welcome from './Welcome';
 import Navbar from './Navbar';
 import DestinationContainer from './DestinationContainer';
 import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 import TripsContainer from './TripsContainer';
 
 
@@ -18,41 +19,24 @@ class App extends Component {
       auth: {
         currentUser: {}
       }
-    }
-  }
+    };
 
-    componentDidMount() {
-      const token = localStorage.getItem('token')
-      if (token) {
-        const options = {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': token
+    this.handleLogin = (user) => {
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          activeItem: 'nav-trips',
+          auth: {
+            ...prevState.auth,
+            currentUser: user
           }
-        }
-        fetch('http://localhost:3001/api/v1/reauth', options)
-        .then(resp => resp.json())
-        .then(user => { this.setState({
-            auth: {
-              currentUser: user
-            }
-          })
-        })
-      }
-    }
-
-    handleLogin = (user) => {
-      this.setState({
-        auth: {
-          currentUser: user
-        }
+        };
       }, () => {
-        localStorage.setItem('token', user.id)
-      })
-    }
+        localStorage.setItem('token', user.id);
+      });
+    };
 
-    handleLogout = () => {
+    this.handleLogout = () => {
       // console.log(e.target);
       this.setState({
         activeItem: 'nav-tripr',
@@ -60,12 +44,12 @@ class App extends Component {
           currentUser: {}
         }
       }, () => {
-        localStorage.clear()
-      })
+        localStorage.clear();
+      });
 
-    }
+    };
 
-  handleNavClick = (e) => {
+    this.handleNavClick = (e) => {
       e.persist();
       this.setState(prevState => {
         return {
@@ -74,7 +58,28 @@ class App extends Component {
         };
       });
     };
+  }
 
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': token
+        }
+      };
+      fetch('http://localhost:3001/api/v1/reauth', options)
+        .then(resp => resp.json())
+        .then(user => { this.setState({
+          auth: {
+            currentUser: user
+          }
+        });
+        });
+    }
+  }
 
   renderContent() {
     switch (this.state.activeItem) {
@@ -83,15 +88,18 @@ class App extends Component {
     case 'nav-destinations':
       return <DestinationContainer />;
     case 'nav-trips':
-      return <TripsContainer user={this.state.auth.currentUser}/>
+      return <TripsContainer user={this.state.auth.currentUser}/>;
+    case 'nav-login':
+      return <LoginForm onLogin={this.handleLogin} />;
+    case 'nav-signup':
+      return <SignupForm onLogin={this.handleLogin} />;
     default:
       return <h1>404 Not Found</h1>;
     }
   }
 
-
   render() {
-    const loggedIn = !!this.state.auth.currentUser.id
+    // const loggedIn = !!this.state.auth.currentUser.id;
     return (
       <div id="main">
         <Segment
@@ -101,8 +109,7 @@ class App extends Component {
           vertical
         >
           <Navbar onNavClick={this.handleNavClick} currentUser={this.state.auth.currentUser} onLogout={this.handleLogout}/>
-          {!loggedIn ? <LoginForm
-            onLogin={this.handleLogin} /> : this.renderContent()}
+          {this.renderContent()}
         </Segment>
       </div>
     );

@@ -16,7 +16,7 @@ class Navbar extends Component {
 
   render() {
     const { fixed } = this.state;
-    const loggedIn = !!this.props.currentUser.id
+    const loggedIn = !!this.props.currentUser.id;
 
     return (
       <Menu
@@ -30,11 +30,34 @@ class Navbar extends Component {
           <Menu.Item as='a' id='nav-tripr' active header onClick={this.props.onNavClick} >
             Tripr
           </Menu.Item>
-          <Menu.Item as='a' id='nav-trips' onClick={this.props.onNavClick}>Trips</Menu.Item>
-          <Menu.Item as='a' id='nav-destinations' onClick={this.props.onNavClick}>Destinations</Menu.Item>
+
+          {loggedIn ?
+            (
+              <Menu.Item as='a' id='nav-trips' onClick={this.props.onNavClick}>My Trips</Menu.Item>
+            ) :
+            null
+          }
+
+          {loggedIn ?
+            (
+              <Menu.Item as='a' id='nav-destinations' onClick={this.props.onNavClick}>Destinations</Menu.Item>
+            ) :
+            null
+          }
+
           <Menu.Item position='right'>
 
-            { loggedIn ? <Button as='a' inverted={!fixed} onClick={this.props.onLogout}>Log Out</Button> : null}
+            { loggedIn ?
+              <Button id='nav-logout' as='a' inverted={!fixed} onClick={this.props.onLogout}>Log Out</Button> :
+              (
+                <div>
+                  <Button id='nav-login' onClick={this.props.onNavClick} as='a' inverted={!fixed}>Log In</Button>
+                  <Button id='nav-signup' onClick={this.props.onNavClick} as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                  Sign Up
+                  </Button>
+                </div>
+              )
+            }
           </Menu.Item>
         </Container>
       </Menu>
@@ -47,11 +70,3 @@ Navbar.propTypes = {
 };
 
 export default Navbar;
-
-
-
-/// replace null with these when you make a sign up page
-{/* <div><Button as='a' inverted={!fixed}>Log In</Button>
-  <Button onClick={this.props.onLogout} as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
-    Sign Up
-  </Button></div> */}

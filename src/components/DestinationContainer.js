@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DestinationCard from './DestinationCard';
-import { Item } from 'semantic-ui-react'
+import { Item } from 'semantic-ui-react';
 
 class DestinationContainer extends Component {
   constructor(props) {
@@ -10,6 +10,14 @@ class DestinationContainer extends Component {
       destinations: [],
       showActivities: false
     };
+
+    this.activityClick = (e) => {
+      console.log(e.target);
+      console.log(this.state.showActivities);
+      this.setState({
+        showActivities: !this.state.showActivities
+      });
+    };
   }
 
   componentDidMount() {
@@ -17,7 +25,7 @@ class DestinationContainer extends Component {
   }
 
   getDestinations() {
-    fetch(`http://localhost:3001/api/v1/destinations`)
+    fetch('http://localhost:3001/api/v1/destinations')
       .then(resp => resp.json())
       .then(json => this.setState(prevState => {
         return {
@@ -27,13 +35,7 @@ class DestinationContainer extends Component {
       }));
   }
 
-  activityClick = (e) => {
-    console.log(e.target)
-    console.log(this.state.showActivities);
-    this.setState({
-      showActivities: !this.state.showActivities
-    })
-  }
+
 
   renderDestinationCards() {
     return this.state.destinations.map(destination => {
