@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ActivitiesCard from './ActivitiesCard';
-import { Item } from 'semantic-ui-react'
+import { Item } from 'semantic-ui-react';
 
 class ActivitiesContainer extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class ActivitiesContainer extends Component {
       activities: []
     };
 
-    this.BASE_URL = 'http://localhost:3001/api/v1/destinations';
+    this.BASE_URL = 'https://tripr-backend.herokuapp.com/api/v1/destinations';
   }
 
   componentDidMount() {
@@ -40,9 +40,9 @@ class ActivitiesContainer extends Component {
   render() {
     return (
       <div id='activities-container'>
-          <Item.Group>
-            {this.renderActivitiesCards()}
-          </Item.Group>
+        <Item.Group>
+          {this.renderActivitiesCards()}
+        </Item.Group>
       </div>
     );
   }

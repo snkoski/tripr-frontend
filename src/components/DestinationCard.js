@@ -13,7 +13,7 @@ constructor(props) {
   }
 }
 
-BASE_URL = 'http://localhost:3001/api/v1/destinations';
+BASE_URL = 'https://tripr-backend.herokuapp.com/api/v1/destinations';
 
 clickChangeState = (e) => {
   this.setState({
@@ -40,7 +40,7 @@ render() {
         </div>
       </Item>
       {this.state.showActivities ? <h1>Top Activities</h1> : null}
-      {this.state.showActivities ? <ActivitiesContainer url={`http://localhost:3001/api/v1/destinations/${this.props.id}/activities`}/> : null }
+      {this.state.showActivities ? <ActivitiesContainer url={`https://tripr-backend.herokuapp.com/api/v1/destinations/${this.props.id}/activities`}/> : null }
     </div>
   );
 };

@@ -19,7 +19,7 @@ componentDidMount() {
 }
 
 getDestination(id) {
-  fetch('http://localhost:3001/api/v1/destinations/' + id )
+  fetch('https://tripr-backend.herokuapp.com/api/v1/destinations/' + id )
   .then(resp => resp.json())
   .then(destination => this.setState({ destination }))
 }
@@ -49,7 +49,7 @@ clickChangeState = (e) => {
           </div>
         </Item>
         {this.state.showActivities ? <h1>Your Activities</h1> : null}
-        {this.state.showActivities ? <ActivitiesContainer url={`http://localhost:3001/api/v1/trips/${this.props.id}/activities`}/> : null}
+        {this.state.showActivities ? <ActivitiesContainer url={`https://tripr-backend.herokuapp.com/api/v1/trips/${this.props.id}/activities`}/> : null}
       </div>
     )
   }
