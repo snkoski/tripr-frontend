@@ -57,6 +57,8 @@ assignActivity(id, data) {
 }
 
   render() {
+    const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
     if (this.state.activities.length !== 0){
     return(
       <div>
@@ -65,7 +67,7 @@ assignActivity(id, data) {
 
           <div className='trip-card'>
             {/* <Button onClick={this.addActivity}>Add an Activity</Button> */}
-            <Popup trigger={<Button onClick={this.addActivity} >Add an Activity For {this.state.destination.name}</Button>} flowing hoverable>
+            <Popup trigger={<Button icon onClick={this.addActivity} >Add an Activity For {this.state.destination.name}</Button>} flowing on='click' hideOnScroll>
               <Grid centered divided columns={this.state.activities.length}>
                 {this.state.activities.map((activity) => {
                   return<Grid.Column textAlign='center'>
@@ -81,7 +83,8 @@ assignActivity(id, data) {
               <Item.Image onClick={this.clickChangeState} size='medium' src={this.state.destination.thumbnail} />
 
               <Item.Description className='trip-card-description'>
-                {this.state.destination.name} {this.props.start_date}
+                <span id='trip-card-destination-name'>{this.state.destination.name}</span> <div>{(new Date(this.props.start_date)).toLocaleDateString('en-US', DATE_OPTIONS)  }<p></p>
+                  {  (new Date(this.props.end_date)).toLocaleDateString('en-US', DATE_OPTIONS)}</div>
               </Item.Description>
               <Item.Meta className='trip-card-meta'>
                 <br></br>
