@@ -23,7 +23,7 @@ class LoginForm extends React.Component {
       },
       body: JSON.stringify(this.state.fields)
     }
-    fetch('http://localhost:3001/api/v1/login', options)
+    fetch('https://tripr-backend.herokuapp.com/api/v1/login', options)
     .then(resp => resp.json())
     .then(user => {
       this.props.onLogin(user)

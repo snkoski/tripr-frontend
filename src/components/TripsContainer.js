@@ -28,7 +28,7 @@ getDestinations() {
 )}
 
 getTrips(id) {
-  fetch('http://localhost:3001/api/v1/users/' + id + '/trips')
+  fetch('https://tripr-backend.herokuapp.com/api/v1/users/' + id + '/trips')
   .then(resp => resp.json())
   .then(trips => this.setState({ trips })
 )}
