@@ -72,7 +72,8 @@ render() {
 
               <option selected> -- select a destination -- </option>
               {this.props.destinations.map((destination) => {
-                return <option value={destination.id}>{destination.name}</option>
+                return <option value={destination.id}
+                  key={destination.id}>{destination.name}</option>
               })}
             </select>
           </div>
