@@ -76,9 +76,12 @@ class App extends Component {
     };
 
     showWelcome = () => {
-      this.setState ({
-        activeItem: 'nav-tripr',
-      })
+      // console.log(this.state.auth.currentUser.error);
+      if (!!this.state.auth.currentUser.id) {
+        this.setState ({
+          activeItem: 'nav-tripr',
+        })
+      }
     }
 
 
