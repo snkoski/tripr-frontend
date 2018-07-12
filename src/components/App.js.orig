@@ -74,7 +74,7 @@ class App extends Component {
           'Authorization': token
         }
       };
-      fetch('http://localhost:3001/api/v1/reauth', options)
+      fetch('https://tripr-backend.herokuapp.com/api/v1/reauth', options)
         .then(resp => resp.json())
         .then(user => { this.setState({
           auth: {

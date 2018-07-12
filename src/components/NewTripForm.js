@@ -35,7 +35,7 @@ class NewTripForm extends React.Component {
       },
       body: JSON.stringify(this.state.fields)
     }
-    fetch('http://localhost:3001/api/v1/trips', options)
+    fetch('https://tripr-backend.herokuapp.com/api/v1/trips', options)
     .then(resp => resp.json())
     .then(trip => this.props.updateTrips([...this.props.trips, trip]))
     .then(this.setState({

@@ -27,7 +27,7 @@ getDestination(id) {
 }
 
 getActivities(id) {
-  fetch('http://localhost:3001/api/v1/destinations/' + id + '/activities')
+  fetch('https://tripr-backend.herokuapp.com/api/v1/destinations/' + id + '/activities')
   .then(resp => resp.json())
   .then(activities => this.setState({ activities }))
 }
@@ -46,7 +46,7 @@ addActivity = (e) => {
 }
 
 assignActivity(id, data) {
-  fetch('http://localhost:3001/api/v1/trips/' + id, {
+  fetch('https://tripr-backend.herokuapp.com/api/v1/trips/' + id, {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
