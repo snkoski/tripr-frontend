@@ -79,12 +79,13 @@ assignActivity(id, data) {
             <Item.Content className='trip-card-content'>
 
               <Item.Image onClick={this.clickChangeState} size='medium' src={this.state.destination.thumbnail} />
+
+              <Item.Description className='trip-card-description'>
+                {this.state.destination.name} {this.props.start_date}
+              </Item.Description>
               <Item.Meta className='trip-card-meta'>
                 <br></br>
               </Item.Meta>
-              <Item.Description className='trip-card-description'>
-                {this.state.destination.name}
-              </Item.Description>
 
             </Item.Content>
           </div>
