@@ -13,7 +13,7 @@ class DestinationCard extends React.Component {
     };
 
 <<<<<<< HEAD
-    this.BASE_URL = 'http://localhost:3001/api/v1/destinations';
+    this.BASE_URL = 'https://tripr-backend.herokuapp.com/api/v1/destinations';
 =======
 BASE_URL = 'https://tripr-backend.herokuapp.com/api/v1/destinations';
 >>>>>>> 8f24e55ee2480bbc18e52066608dc37900d2f12d
@@ -45,7 +45,7 @@ BASE_URL = 'https://tripr-backend.herokuapp.com/api/v1/destinations';
           </div>
         </Item>
         {this.state.showActivities ? <h1>Top Activities</h1> : null}
-        {this.state.showActivities ? <ActivitiesContainer url={`http://localhost:3001/api/v1/destinations/${this.props.id}/activities`}/> : null }
+        {this.state.showActivities ? <ActivitiesContainer url={`https://tripr-backend.herokuapp.com/api/v1/destinations/${this.props.id}/activities`}/> : null }
       </div>
     );
   }

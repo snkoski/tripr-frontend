@@ -37,7 +37,7 @@ class SignupForm extends React.Component {
         },
         body: JSON.stringify(this.state.fields)
       };
-      fetch('http://localhost:3001/api/v1/users', options)
+      fetch('https://tripr-backend.herokuapp.com/api/v1/users', options)
         .then(resp => resp.json())
         .then(user => {
           this.props.onLogin(user);
