@@ -38,11 +38,14 @@ clickChangeState = (e) => {
   })
 }
 
-addActivity = (e) => {
-  // console.log(e.target);
-  // console.log(this.props.destination_id);
-  // console.log(this.state.destination);
-  console.log(this.state.activities);
+deleteTrip(id) {
+return  fetch('https://tripr-backend.herokuapp.com/api/v1/trips/' + id, {
+    method: 'DELETE'
+  })
+  .then(resp => {this.setState({
+    activities: []
+  })})
+
 }
 
 assignActivity(id, data) {
@@ -86,6 +89,7 @@ assignActivity(id, data) {
                 <span id='trip-card-destination-name'>{this.state.destination.name}</span> <div>{(new Date(this.props.start_date)).toLocaleDateString('en-US', DATE_OPTIONS)  }<p></p>
                   {  (new Date(this.props.end_date)).toLocaleDateString('en-US', DATE_OPTIONS)}</div>
               </Item.Description>
+              <div onClick={() => {this.deleteTrip(this.props.id)}}>delete trip</div>
               <Item.Meta className='trip-card-meta'>
                 <br></br>
               </Item.Meta>
